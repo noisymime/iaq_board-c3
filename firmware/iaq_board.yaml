@@ -34,11 +34,6 @@ substitutions:
 esphome:
   name: iaq-board
   friendly_name: IAQ Board
-  # The library dep is added because of a bug in the neopixel library 
-  # ver. 2.5.7. Can be removed when library is updated in future ver.
-  # of esphome
-  platformio_options:
-    lib_deps: NeoPixelBus@2.6.0
     
   on_boot:
     then:
