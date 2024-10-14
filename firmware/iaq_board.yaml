@@ -1,5 +1,5 @@
 esp32:
-  board: wemos_d1_mini32
+  board: esp32-c3-devkitm-1
   framework:
     type: arduino
 
@@ -11,6 +11,7 @@ api:
 # Required for Home Assistant Intergration
 
 ota:
+  - platform: esphome
 
 wifi:
   ssid: !secret wifi_ssid
@@ -32,7 +33,7 @@ substitutions:
   yaml_version: "1.1.3"
 
 esphome:
-  name: iaq-board
+  name: iaq-board-1
   friendly_name: IAQ Board
     
   on_boot:
@@ -186,25 +187,25 @@ font:
     size: 10
 
 uart:
-  - rx_pin: GPIO1
+  - rx_pin: GPIO10
     baud_rate: 9600
     id: pms
   
-  - rx_pin: GPIO18
-    tx_pin: GPIO19
+  - rx_pin: GPIO20
+    tx_pin: GPIO21
     baud_rate: 9600
     id: mh
 
 i2c:
-  scl: GPIO22
-  sda: GPIO21
+  scl: GPIO9
+  sda: GPIO8
   frequency: 100kHz
 
 binary_sensor:
   - platform: gpio
     id: buttonpcb
     pin:
-      number: GPIO23
+      number: GPIO3
       mode: INPUT_PULLUP
       inverted: True
     on_click:
@@ -640,7 +641,7 @@ light:
       to: 2
   - platform: neopixelbus
     num_leds: 3
-    pin: GPIO16
+    pin: GPIO2
     name: "RGB strip"
     variant: SK6812
     id: rgb_led
@@ -650,7 +651,7 @@ switch:
   - platform: gpio
     name: "PMS7003_SET"
     pin: 
-      number: GPIO26
+      number: GPIO1
       mode: OUTPUT
     restore_mode: ALWAYS_ON
     id: pms_set
