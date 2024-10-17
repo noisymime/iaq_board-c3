@@ -1,0 +1,6 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "nikolay_symbols")(type "KiCad")(uri "/Users/josh/Documents/GitHub/iaq_board-c3/kicad/my_libs/symbols/nikolay_symbols.kicad_sym")(options "")(descr ""))
+  (lib (name "iaq_device-rescue")(type "KiCad")(uri "${KIPRJMOD}/iaq_device-rescue.kicad_sym")(options "")(descr ""))
+  (lib (name "Misc")(type "KiCad")(uri "/Users/josh/Documents/GitHub/iaq_board-c3/kicad/my_libs/symbols/Misc.kicad_sym")(options "")(descr ""))
+)
