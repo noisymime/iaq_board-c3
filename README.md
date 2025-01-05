@@ -1,7 +1,7 @@
 ![](images/iaq-device-c3.jpeg)
 
 # IAQ C3 (Indoor Air Quality) Board 
-IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. This device is a fork of the [amazing work by Badn1nja](https://github.com/Badn1nja/iaq_board_fork) with the goals of updating the PCB to use the newer ESP32-C3 and to provide a more complete case and stand solution. 
+IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. This device is a fork of the [amazing work by Nikolay Kitanov](https://github.com/nkitanov/iaq_board) with the goals of updating the PCB to use the newer ESP32-C3 and to provide a more complete case and stand solution. 
 
 **And here is my device. I am publishing all the details and documentation under '[open source hardware](https://en.wikipedia.org/wiki/Open-source_hardware)' CC-BY-CA license, so everyone can build, adapt and sell it, as long as share under the same license**
 
@@ -44,7 +44,7 @@ IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. T
    * [License](#license)
 
 ## What exactly is this thing?
-The device is based on widely available and cheap essential components ([MCU](https://en.wikipedia.org/wiki/Microcontroller) and sensors). The core component is a simple [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) (printed circuit board) that's why I called it **IAQ Board**. The board integrates all the components in a very small footprint (size of a cigarette box). All parts are soldered on it and everyone can assemble it with basic soldering skills. The total price if you build it yourself is about 50-60 EUR. I also made simplistic holder for 3D print (6-7 EUR is you don't have a 3D printer). For these amount of money you get the following air parameters measured adequately (you might not install all sensors if you want to save money): 
+The device is based on widely available and cheap essential components ([MCU](https://en.wikipedia.org/wiki/Microcontroller) and sensors). The core component is a simple [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) (printed circuit board) that's why I called it **IAQ Board**. The board integrates all the components in a very small footprint (size of a cigarette box). All parts are soldered on it and everyone can assemble it with basic soldering skills. The total price if you build it yourself is about $75 AUD. For these amount of money you get the following air parameters measured adequately (you might not install all sensors if you want to save money): 
 - [X] ***Temperature / Humidity / Pressure***
 - [X] [***Air particles PM1, PM2.5, PM10***](https://en.wikipedia.org/wiki/Particulates)
 - [X] [***Carbon Dioxide with NDIR sensor***](https://en.wikipedia.org/wiki/Indoor_air_quality#Carbon_dioxide)
@@ -92,7 +92,7 @@ It's designed on [KiCad](https://kicad.org/) and in the [kicad folder](kicad/) y
 STL files for a case and stand are provided and can be printed on any standrd 3D printer.
 
 ## 3. Microcontroller Board
-This is the primary difference between this board and the original by Badn1nja. I am using the newer ESP32-C3 Supermini which is not only faster and more compact, but has a USB-C connector on it rather than micro-USB
+This is the primary difference between this board and the original by [nkitanov](https://github.com/nkitanov/iaq_board). I am using the newer ESP32-C3 Supermini which is not only faster and more compact, but has a USB-C connector on it rather than micro-USB
 
 ![](images/ESP32-C3-Supermini.jpg)
 
