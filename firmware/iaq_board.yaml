@@ -33,8 +33,8 @@ substitutions:
   yaml_version: "1.1.3"
 
 esphome:
-  name: iaq-board-1
-  friendly_name: IAQ Board
+  name: "iaq-board-2"
+  friendly_name: IAQ Board Bedroom
     
   on_boot:
     then:
@@ -187,7 +187,7 @@ font:
     size: 10
 
 uart:
-  - rx_pin: GPIO10
+  - rx_pin: GPIO1
     baud_rate: 9600
     id: pms
   
@@ -199,13 +199,14 @@ uart:
 i2c:
   scl: GPIO9
   sda: GPIO8
-  frequency: 100kHz
+  #frequency: 100kHz
+  frequency: 400kHz
 
 binary_sensor:
   - platform: gpio
     id: buttonpcb
     pin:
-      number: GPIO3
+      number: GPIO7
       mode: INPUT_PULLUP
       inverted: True
     on_click:
@@ -641,7 +642,7 @@ light:
       to: 2
   - platform: neopixelbus
     num_leds: 3
-    pin: GPIO2
+    pin: GPIO10
     name: "RGB strip"
     variant: SK6812
     id: rgb_led
@@ -651,7 +652,7 @@ switch:
   - platform: gpio
     name: "PMS7003_SET"
     pin: 
-      number: GPIO1
+      number: GPIO2
       mode: OUTPUT
     restore_mode: ALWAYS_ON
     id: pms_set
@@ -688,7 +689,7 @@ display:
     model: "SSD1306 128x64"
     address: 0x3C
     brightness: 100%
-    rotation: 180
+    rotation: 0
     id: display1
     lambda: |-
       if (id(button_mode) == 7 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
@@ -745,17 +746,4 @@ display:
           it.printf(0, 20, id(arial), "Night dim: %s", id(night_mode) ? "ON" : "OFF");
       } else if (id(min_max_zero)) {
           it.print(0, 20, id(arial), "MIN-MAX reset!");
-      }
-      
-  - platform: ssd1306_i2c
-    model: "SSD1306 64x48"
-    address: 0x3D
-    brightness: 100%
-    rotation: 270
-    id: display2
-    lambda: |-
-      if (id(display_on) && id(button_mode) < 8) {
-          it.printf(0, 0, id(arial), "%.1f C", id(temp).state);
-          it.printf(0, 20, id(arial), "%.0f %%", id(hum).state);
-          it.printf(0, 40, id(arial), "%.0f h", id(press).state);
       }

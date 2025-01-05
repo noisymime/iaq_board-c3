@@ -1,7 +1,7 @@
-![](images/iaq_device_3d.png)
+![](images/iaq-device-c3.png)
 
-# IAQ (Indoor Air Quality) Board 
-IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap, simple and capable**. After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. 
+# IAQ C3 (Indoor Air Quality) Board 
+IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. This device is a fork of the [amazing work by Badn1nja](https://github.com/Badn1nja/iaq_board_fork) with the goals of updating the PCB to use the newer ESP32-C3 and to provide a more complete case and stand solution. 
 
 **And here is my device. I am publishing all the details and documentation under '[open source hardware](https://en.wikipedia.org/wiki/Open-source_hardware)' CC-BY-CA license, so everyone can build, adapt and sell it, as long as share under the same license**
 
@@ -54,7 +54,7 @@ The device is based on widely available and cheap essential components ([MCU](ht
 - [X] ***equivalent CO2 (not very correct compared with the NDIR sensor, but it's provided by the VOC sensor)***
 
 **On top of that:**
-- [X] ***At least one OLED display to show the data (can have one more on the top of the MCU board)***
+- [X] ***One OLED display to show the data ***
 - [X] ***three RGB wide angle LEDs with auto brightness. LED1 indicates PM2.5, LED2 - Air quality index, LED3 - CO2.*** 
 - [X] ***auto night dimming of the displays and LEDs (can be disabled)***
 - [X] ***MIN/MAX values of Temperature, PM2.5 and CO2, and 24h average PM2.5 value.***
@@ -62,9 +62,6 @@ The device is based on widely available and cheap essential components ([MCU](ht
 - [X] ***[firmware](https://en.wikipedia.org/wiki/Firmware) based on [ESPhome](https://esphome.io/), the device can be [directly added](https://esphome.io/components/api.html) in [Home Assistant](https://www.home-assistant.io/)***
 - [X] ***WiFi access to the device with http server and [REST API](https://esphome.io/web-api/index.html) and [esphome native API](https://esphome.io/components/api.html)  to read the sensor data***
 
-Here is a video with all you need to know:
-
-[![Click to see the video](images/youtube.jpg)](https://www.youtube.com/watch?v=X75OGs2TTT8)
 
 ## Who can build it?
 The device is just a simple PCB board and almost everyone with some soldering skills can assemble it in a few steps:
@@ -82,10 +79,7 @@ I made this device for me and then decided to share it. I think a lot of people 
 However I know that someone might be interested in the device, but lack the skills to build it. [Please follow this link for more details.](ordering.md)
 
 # Components Details
-The device with AAA battery size comparison:
 
-![](images/iaq_device.jpg)
-![](images/iaq_device1.jpg)
 ## 1. PCB
 ![](images/pcb.png)
 ![](images/pcb.jpg)
@@ -93,17 +87,17 @@ The device with AAA battery size comparison:
 The PCB (printed circuit board) is very simple and compact. It's 70x43mm (photos above are showing it larger than the actual size). It just connects a few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Most of the parts are surface mounted which makes the soldering just a bit more complicated, but still not a big deal. And of course it could be integrated even more by soldering all individual components on the PCB but then it's not really a hobby project anymore and much more difficult to build it.
 It's designed on [KiCad](https://kicad.org/) and in the [kicad folder](kicad/) you can find full KiCad project, PCB gerber files, etc.
 ## 2. Holder case
-![](images/stand.gif)
+![](images/case-stand.png)
 
-For any device the box is important. However my idea was to expose the PCB and electronics as much as possible in order to simplify it. I like the "raw" view of electronics and in this form I find it beautiful. 
+STL files for a case and stand are provided and can be printed on any standrd 3D printer.
 
-Taking into account this, I designed a simple holder case for "sliding" the PCB in it and holding the particle sensor. The case can stay at about 45 degrees angle. It is designed on Fusion 360 and the [details are here](case_model). The holder case is not perfect, I was thinking to redesign it but no time for this. I am sure someone can do it better. :smile: Or design a complete box to cover the electronics fully, for me it is better in this minimalistic style. 
 ## 3. Microcontroller Board
 ![](images/esp32.jpg)
 
-Initially I developed the board with using the most popular WiFi enabled MCU [ESP8266](https://en.wikipedia.org/wiki/ESP8266) mounted on the cheap and small [Wemos D1 Mini board](https://docs.wemos.cc/en/latest/d1/d1_mini.html). However this MCU have some limitations described in the [tech details](#more-tech-details), so I changed it with the same size board compatible with Wemos D1 Mini, but running the newer much more powerful MCU of the same company - [ESP32](https://en.wikipedia.org/wiki/ESP32). In that way the device is quite stable, can run web server and since the board is having the same layout, on top of the D1 Mini ESP32 board you can connect extra display designed for d1 mini very easy. PCB is compatible with both D1 Mini ESP8266 or ESP32, even the labels are the same like on the older D1 board. However **I do not recommend to use D1 mini with ESP8266!** Also if I have to build next version of the PCB (I still have some 25 pcs), I will change the pins of one of the dust sensors.
+This is the primary difference between this board and the original by Badn1nja. I am using the newer ESP32-C3 Supermini which is not only faster and more compact, but has a USB-C connector on it rather than micro-USB
 
-These small size MCU board are pretty nice, they are tiny, have USB connector, onboard power supply and USB converter for programming or serial output. And you are powering the whole device just with a mini USB cable.
+![](images/ESP32-C3-Supermini.jpg)
+
 ## 4. Dust Sensor
 ![](images/pms7003.jpg)
 
@@ -139,14 +133,14 @@ PM2.5 value (um/m3)<br>LED 1 | [AQI by EEA (Air Quality Index for PM2.5 24h aver
 30 - 40 | 25 - 50 (Poor) | 1500 - 2100 | ![](https://img.shields.io/static/v1?label=&message=MAGENTA&color=magenta) | on | off | on 
 \> 50 | > 50 (Very Poor) | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | off 
 
-## 9. Displays
-The main display is the popular SSD1306 128x64 OLED display. On the top of the MCU board you can install extra [OLED 63x48](https://docs.wemos.cc/en/latest/d1_mini_shiled/oled_0_66.html) shield from Lolin which shows temperature, humidity and air pressure only.
-## 10. Volatile Organic Compound sensor
-![](images/sgp30.jpg)
+## 9. Display
+The display is the popular SSD1306 128x64 OLED display that is wideley and cheaply available on Aliexpress and eBay. 
 
+## 10. Volatile Organic Compound sensor
 This is the [Sensirion SGP30](https://www.sensirion.com/en/environmental-sensors/gas-sensors/sgp30/) senor mounted on a breakout board from China. I do not use it on all my devices, but I added it because I can. :smile: Also with it the device measures almost completely the internal air quality. SGP30 is also showing equivalent CO2 based on VOC but it's not precise compared with MH-Z19B NDIR sensor. Also it needs periodic calibration hardcoded in the firmware which makes it more tricky to use.
 
 Please [check here](https://github.com/nkitanov/iaq_board/issues/10#issuecomment-798994427) for the known issues with these boards.
+
 ## 11. Other electrical components
 ![](images/buttons.png)
 
@@ -165,7 +159,7 @@ Bellow is the list of all parts needed to assemble the device with links to sour
 Schematic Ref | ITEM | pcs | Comment
 --------------| ---- | :-: | -------
 | | PCB Board | 1 | in [kicad folder](kicad) you can find all the data and GERBER PCB design files
-U1 | [WeMos_D1_mini_ESP32](https://www.aliexpress.com/item/4000880936043.html?spm=a2g0o.productlist.0.0.f387754egZVnTc&algo_pvid=b105e43b-6669-40bc-99c4-cf22d026995d&algo_expid=b105e43b-6669-40bc-99c4-cf22d026995d-6&btsid=0bb0623616009843570355505e4ca0&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 1 | [ESP8266 version](https://www.wemos.cc/en/latest/d1/d1_mini.html) also can work but not recommended 
+U1 | [ESP32-C3 Supermini](https://vi.aliexpress.com/item/1005007577443695.html) | 1
 U2 | [PMS7003 Sensor](https://www.aliexpress.com/item/32832444694.html?spm=a2g0s.9042311.0.0.27424c4dKxsO6Z) | 1 | don't use the 2x5pin 1.27mm receptacle which comes normally wit these sensors, explanation is bellow
 U3 | [SSD1306 Display](https://www.aliexpress.com/item/32956051129.html?spm=a2g0o.productlist.0.0.523365fcQkP3XC&algo_pvid=b62bd3ab-fe19-479e-bc50-b2c68dd35525&algo_expid=b62bd3ab-fe19-479e-bc50-b2c68dd35525-25&btsid=67d67e08-4ad1-4c08-8cec-e378bae47fc6&ws_ab_test=searchweb0_0,searchweb201602_9,searchweb201603_55) | 1 | pay attention to correct pin order if you are buying from another source, as there are similar 4pin boards with different pinout
 U4 | [BME280 breakout board](https://www.aliexpress.com/item/4000166540445.html?spm=a2g0o.productlist.0.0.363a562ely2LZq&algo_pvid=b0bd6068-edbb-4f9c-aa24-92324f726eda&algo_expid=b0bd6068-edbb-4f9c-aa24-92324f726eda-8&btsid=3927b67d-2f89-4594-9f47-b017e00ef8a0&ws_ab_test=searchweb0_0,searchweb201602_9,searchweb201603_55) | 1 | only 3.3V version with 6 pins which have both I2C and SPI. **Please note that due to semiconductor shortage these are difficult to find now (June 2021). I am currently using my own breakout where I solder the BME directly. BME280 as IC can be found occasionally in stock from DigiKey**
@@ -174,16 +168,14 @@ U6 | [SGP30 breakout board](https://www.aliexpress.com/item/4000004614708.html?s
 U7 | [TLS2561 light sensor](https://www.aliexpress.com/item/33056165996.html?spm=a2g0s.9042311.0.0.15314c4draqb6x) | 1
 C1-C4 | [0.1 uF SMD Capacitor](https://bg.farnell.com/wurth-elektronik/885012207016/cap-0-1-f-10v-10-x7r-0805/dp/2534051?st=smd%20capacitors) | 4
 D1-D3 | [Neopixel 5050 LED](https://www.aliexpress.com/item/4000750610574.html?spm=a2g0o.productlist.0.0.55a96722mpqDCp&algo_pvid=4be2d94a-875a-4e56-af12-1f6a3dcdf49f&algo_expid=4be2d94a-875a-4e56-af12-1f6a3dcdf49f-5&btsid=0bb0623416009856118282154ebe61&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 3
-| SW1 | [Tactile Switch B3S-1000](https://uk.farnell.com/omron/b3s-1000/switch-spno-0-05a-24v-smd/dp/177807) | 1 |
-| SW2 | [Tactile Switch B3U-1000P](https://bg.farnell.com/omron/b3u-1000p/switch-spst-no-0-05a-12v-smd/dp/1333652?st=B3U-1000P) | 1
+| SW1 | [Tactile Switch TL3305](https://www.digikey.com.au/en/products/detail/e-switch/TL3305BF160QG/5816182) | 1
+| SW2 | [Tactile Switch TL3342](https://www.digikey.com.au/en/products/detail/e-switch/TL3342F450QG/4029404) | 1
 | | [PCB Receptacle, 1.27 mm, 10 Contacts](https://bg.farnell.com/amphenol-icc-fci/20021311-00010t4lf/receptacle-vert-1-27mm-tht-10way/dp/1865313) | 1 | This PCB Receptacle is for connecting PMS7003 dust sensor. Keep in mind these sensors come with such connector included but it's slightly taller and makes a gap of about half mm between sensor and PCB which is not ok.
 | | [SMD PCB Receptacle 8 pins](https://uk.farnell.com/samtec/ssm-108-l-sv/receptacle-2-54mm-vert-8way/dp/1668259?st=ssm-108-l-sv%20pcb%20receptacle) | 3 | two are needed for the MCU board, 3rd you can skip. It's for extra pins on the PCB but with ESP32 MCU not needed so much as extra headers can be soldered directly on it's board
 | | [PCB Receptacle 4 pin](https://uk.farnell.com/samtec/bcs-104-l-s-te/receptacle-2-54mm-vert-4way/dp/1667470?ost=bcs-104-l-s-te) | 4 | four is needed if all sensors are installed
-| | [OLED 63x48 shield](https://www.aliexpress.com/item/32981156326.html?spm=a2g0s.9042311.0.0.27424c4dO21RuC) | 1 | not required, only if you want an extra display on top of the MCU board
 | | [Holder case](case_model) | 1 | it's not required to have it but it makes the device completed
 | | [Display holder](case_model) | 1 | This small 3D printed part is holding tight the display from flapping 
 | | [Various 2.54 headers](https://www.ebay.co.uk/itm/10pcs-40-pin-2-54mm-Breakaway-Male-Header-for-PCB-Breadboard-1x40-Single-Row-UK/262755464818?epid=20008873513&hash=item3d2d723672:g:st8AAOSwMsZdNw5x) | | You will need these for the CO2 sensor if you don't have available. Normally they come together with the breakout boards.
-| | [2mm nylon bolts/nuts](https://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2047675.m570.l1313&_nkw=2mm+nylon+bolts&_sacat=0) | | If you want to make the display more stable you can install nylon bolts like explained [in the video](https://youtu.be/b2oDBgN3h1w?t=758). Better use [display holder](case_model).
 
 # Firmware
 Firmware is created with [ESPHome](https://esphome.io/index.html). The binary file, configuration and instructions are located in [firmware folder](firmware/).
